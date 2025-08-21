@@ -1,3 +1,33 @@
+// Dark Mode Functionality
+const themeToggle = document.getElementById( 'theme-toggle' );
+const body = document.body;
+
+// Check for saved theme preference or respect OS preference
+const savedTheme = localStorage.getItem( 'theme' ) ||
+    ( window.matchMedia( '(prefers-color-scheme: dark)' ).matches ? 'dark' : 'light' );
+
+// Apply the saved theme
+if ( savedTheme === 'dark' ) {
+    body.setAttribute( 'data-theme', 'dark' );
+    themeToggle.textContent = '☀️ Light Mode';
+} else {
+    body.removeAttribute( 'data-theme' );
+    themeToggle.textContent = '🌙 Dark Mode';
+}
+
+// Toggle theme on button click
+themeToggle.addEventListener( 'click', () => {
+    if ( body.getAttribute( 'data-theme' ) === 'dark' ) {
+        body.removeAttribute( 'data-theme' );
+        localStorage.setItem( 'theme', 'light' );
+        themeToggle.textContent = '🌙 Dark Mode';
+    } else {
+        body.setAttribute( 'data-theme', 'dark' );
+        localStorage.setItem( 'theme', 'dark' );
+        themeToggle.textContent = '☀️ Light Mode';
+    }
+} );
+
 // Toggle result visibility
 function toggleResult( resultId, testFunction ) {
     const resultElement = document.getElementById( resultId );
